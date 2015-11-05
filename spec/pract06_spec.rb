@@ -1,4 +1,4 @@
-require "../lib/pract06"
+require "./lib/pract06"
 
 describe Referencias do
 	before :each do
