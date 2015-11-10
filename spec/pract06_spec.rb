@@ -3,14 +3,29 @@ require "./lib/pract06"
 describe Referencias do
 	before :each do
 			
-		@ref1 = Referencias.new(['autor1','autor2'], 'titulo', 'editorial', 1, '24/07/1990', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'serie') 
-		@ref2 = Referencias.new(['Dave Thomas','Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', 'Pragmatic Bookshelf', 4, '07/07/2013', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'The Facets of Ruby') 
-		@ref3 = Referencias.new(['autor1','autor2'], 'titulo', 'editorial', 1, '25/08/1999', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491']) 
+		@ref1 = Referencias.new(['autor1','autor2'], 'titulo', 'editorial', '1', '24/07/1990', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'serie') 
+		@ref2 = Referencias.new(['Dave Thomas','Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', 'Pragmatic Bookshelf', '4', '07/07/2013', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'The Facets of Ruby') 
+		@ref3 = Referencias.new(['autor1','autor2'], 'titulo', 'editorial', '1', '25/08/1999', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491']) 
  		@nod1 = Nodo.new(@ref1, nil)
 		@nod2 = Nodo.new(@ref2, nil)
 		@nod3 = Nodo.new(@ref3, nil)
 		@listVacia = Lista.new(nil)	
 		@listConContenido = Lista.new(@nod1)		
+                @refp1 = Referencias.new(['Dave Thomas','Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', 'Pragmatic Bookshelf', '4', '07/07/2013', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'The Facets of Ruby')
+
+                @refp2 = Referencias.new(['Scott Chacon'], 'Pro Git 2009th Edition', 'Apress', '2009', '27/08/2009', ['ISBN-13: 978-1430218333', 'ISBN-10: 1430218339'], 'Pro')
+
+                @refp3 = Referencias.new(['David Flanagan,','Yukihiro Matsumoto'], 'The Ruby Programming Language', 'O Reilly Media', '1', '04/02/2008', ['ISBN-10: 0596516177', 'ISBN-13: 978-0596516178'])
+
+                @refp4 = Referencias.new(['David Chelimsky','Dave Astels', 'Bryan Helmkamp', 'Dan North', 'Zach Dennis', 'Aslak Hellesoy'], 'The RSpecBook: Behaviour Driven Development with RSpec, Cucumber, and Friends', 'Pragmatic Bookshelf', '1', '25/12/2010', ['ISBN-10: 1934356379', 'ISBN-13: 978-1934356371'], 'The Facets of Ruby')
+
+                @refp5 = Referencias.new(['Richard E'], 'Silverman Git Pocket Guide', 'O Reilly Media', '1', '02/08/2013', ['ISBN-10: 1449325866', 'ISBN-13: 978-1449325862'])
+                @nodp1 = Nodo.new(@refp1, nil)
+                @nodp2 = Nodo.new(@refp2, nil)
+                @nodp3 = Nodo.new(@refp3, nil)
+                @nodp4 = Nodo.new(@refp4, nil)
+                @nodp5 = Nodo.new(@refp5, nil)
+                @listaEnlazada = Lista.new(nil)
 	end  
 	
 	describe "Nodo para la lista enlazada"	do
@@ -86,6 +101,13 @@ describe Referencias do
 			expect(@listConContenido.ultimo).to eq(@nod3)
 			
 		end
+		
+		it "Debe existir un metodo para borrar la lista" do
+                        @listConContenido.insertarFinal(@nod2)
+                        @listConContenido.insertarFinal(@nod3)
+			@listConContenido.borrar
+			expect(@listConContenido.vacia).to eq(true)
+		end
 	end 
 
 	
@@ -108,7 +130,7 @@ describe Referencias do
 		
 		
 		it "Debe existir un numero de edicion y un metodo para acceder a el" do
-			expect(@ref1.numEdicion).to eq(1)
+			expect(@ref1.numEdicion).to eq('1')
 		end
 		it "Debe existir una fecha de lanzamiento y un metodo para acceder a ella" do
 			expect(@ref1.fechaDate).to be_an_instance_of(Date)
@@ -140,6 +162,29 @@ describe Referencias do
 			expect(@ref1.salidaFormateada()).to eq("autor1, autor2.\ntitulo\n(serie)\neditorial; 1 edition (July 24, 1990)\nISBN-13: 978-1937785499\nISBN-10: 1937785491")
 			expect(@ref2.salidaFormateada()).to eq("Dave Thomas, Andy Hunt, Chad Fowler.\nProgramming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide\n(The Facets of Ruby)\nPragmatic Bookshelf; 4 edition (July 7, 2013)\nISBN-13: 978-1937785499\nISBN-10: 1937785491")
 			expect(@ref3.salidaFormateada()).to eq("autor1, autor2.\ntitulo\neditorial; 1 edition (August 25, 1999)\nISBN-13: 978-1937785499\nISBN-10: 1937785491")
+		end
+	end
+	
+	describe "Pruebas con varias referencias " do
+		it "Deberia poderse insertar todas las referencias en la lista por la cabeza y por el final y despues borrarlas" do
+			@listaEnlazada.insertarInicio(@nodp1)		
+			@listaEnlazada.insertarFinal(@nodp2)		
+			@listaEnlazada.insertarFinal(@nodp3)
+			expect(@listaEnlazada.cabeza).to eq(@nodp1)		
+			expect(@listaEnlazada.ultimo).to eq(@nodp3)		
+			@listaEnlazada.insertarFinal(@nodp4)		
+			@listaEnlazada.insertarInicio(@nodp5)
+			expect(@listaEnlazada.cabeza).to eq(@nodp5)		
+			expect(@listaEnlazada.ultimo).to eq(@nodp4)
+			expect(@listaEnlazada.extraerCabeza).to eq(@nodp5)
+			expect(@listaEnlazada.extraerUltimo).to eq(@nodp4)		
+			expect(@listaEnlazada.cabeza).to eq(@nodp1)		
+			expect(@listaEnlazada.ultimo).to eq(@nodp3)
+			@listaEnlazada.borrar
+			expect(@listaEnlazada.vacia).to eq(true)
+			expect(@listaEnlazada.cabeza).to eq(nil)		
+			expect(@listaEnlazada.ultimo).to eq(nil)
+					
 		end
 	end
 end

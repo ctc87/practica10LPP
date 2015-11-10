@@ -7,6 +7,12 @@ Lista = Struct.new(:cabeza) do
 	def vacia
 		vacia = cabeza == nil ? true : false 
 	end
+	
+	def borrar
+		while(!vacia)
+			self.extraerCabeza	
+		end
+	end
 
 	def ultimo
 		if(vacia)
