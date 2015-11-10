@@ -1,4 +1,73 @@
 require 'date'
+
+
+Nodo = Struct.new(:dato, :nodoSiguiente) 
+
+Lista = Struct.new(:cabeza) do
+	def vacia
+		vacia = cabeza == nil ? true : false 
+	end
+
+	def ultimo
+		if(vacia)
+			return nil
+		end
+		nodoActual = cabeza
+		while(nodoActual.nodoSiguiente != nil)
+			nodoActual = nodoActual.nodoSiguiente
+		end
+		return nodoActual
+	end
+
+	def insertarFinal(nodo)
+		if(vacia)
+			self.cabeza = nodo
+		else
+			ultimo.nodoSiguiente = nodo 
+		end 
+	end
+	
+	def insertarInicio(nodo)
+		if(vacia)
+			self.cabeza = nodo 
+		else
+			aux = cabeza
+			self.cabeza = nodo 
+			self.cabeza.nodoSiguiente = aux
+		end	
+	end
+	
+	def extraerUltimo
+		if(vacia)
+			return nil
+		end
+		nodoActual = cabeza
+		if(ultimo == cabeza)
+			aux = cabeza
+			cabeza = nil
+			return aux
+		end 
+		while(nodoActual.nodoSiguiente.nodoSiguiente != nil)
+			nodoActual = nodoActual.nodoSiguiente
+		end	
+		aux = nodoActual.nodoSiguiente
+		nodoActual.nodoSiguiente = nil
+		return aux 
+	end
+	
+	def extraerCabeza
+		if(vacia)
+			return nil
+		end
+		aux = cabeza
+		self.cabeza = self.cabeza.nodoSiguiente
+		return aux	
+	end
+end
+
+
+
+
 class Referencias
 	attr_reader :autor,:titulo, :serie, :editorial, :numEdicion, :fecha, :codISBN, :fechaDate
   	def initialize(autor, titulo, editorial, numEdicion, fecha, codISBN, serie = 'null')
