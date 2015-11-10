@@ -1,4 +1,5 @@
 require "./lib/pract06"
+include Practica7
 
 describe Referencias do
 	before :each do
