@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/ctc87/practica7LPP/badge.svg?branch=master&service=github)](https://coveralls.io/github/ctc87/practica7LPP?branch=master)
+
 # Pract07
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pract06`. To experiment with that code, run `bin/console` for an interactive prompt.
