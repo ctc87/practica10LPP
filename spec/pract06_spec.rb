@@ -4,23 +4,23 @@ include Practica7
 describe Referencias do
 	before :each do
 			
-		@ref1 = Referencias.new(['autor1','autor2'], 'titulo', 'editorial', '1', '24/07/1990', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'serie') 
-		@ref2 = Referencias.new(['Dave Thomas','Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', 'Pragmatic Bookshelf', '4', '07/07/2013', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'The Facets of Ruby') 
-		@ref3 = Referencias.new(['autor1','autor2'], 'titulo', 'editorial', '1', '25/08/1999', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491']) 
+		@ref1 = Libro.new(['autor1','autor2'], 'titulo', 'editorial', '1', '24/07/1990', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'serie') 
+		@ref2 = Libro.new(['Dave Thomas','Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', 'Pragmatic Bookshelf', '4', '07/07/2013', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'The Facets of Ruby') 
+		@ref3 = Libro.new(['autor1','autor2'], 'titulo', 'editorial', '1', '25/08/1999', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491']) 
  		@nod1 = Nodo.new(@ref1, nil, nil)
 		@nod2 = Nodo.new(@ref2, nil, nil)
 		@nod3 = Nodo.new(@ref3, nil, nil)
 		@listVacia = Lista.new()	
 		@listConContenido = Lista.new(@nod1)		
-                @refp1 = Referencias.new(['Dave Thomas','Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', 'Pragmatic Bookshelf', '4', '07/07/2013', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'The Facets of Ruby')
+                @refp1 = Libro.new(['Dave Thomas','Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', 'Pragmatic Bookshelf', '4', '07/07/2013', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'The Facets of Ruby')
 
-                @refp2 = Referencias.new(['Scott Chacon'], 'Pro Git 2009th Edition', 'Apress', '2009', '27/08/2009', ['ISBN-13: 978-1430218333', 'ISBN-10: 1430218339'], 'Pro')
+                @refp2 = Libro.new(['Scott Chacon'], 'Pro Git 2009th Edition', 'Apress', '2009', '27/08/2009', ['ISBN-13: 978-1430218333', 'ISBN-10: 1430218339'], 'Pro')
 
-                @refp3 = Referencias.new(['David Flanagan,','Yukihiro Matsumoto'], 'The Ruby Programming Language', 'O Reilly Media', '1', '04/02/2008', ['ISBN-10: 0596516177', 'ISBN-13: 978-0596516178'])
+                @refp3 = Libro.new(['David Flanagan,','Yukihiro Matsumoto'], 'The Ruby Programming Language', 'O Reilly Media', '1', '04/02/2008', ['ISBN-10: 0596516177', 'ISBN-13: 978-0596516178'])
 
-                @refp4 = Referencias.new(['David Chelimsky','Dave Astels', 'Bryan Helmkamp', 'Dan North', 'Zach Dennis', 'Aslak Hellesoy'], 'The RSpecBook: Behaviour Driven Development with RSpec, Cucumber, and Friends', 'Pragmatic Bookshelf', '1', '25/12/2010', ['ISBN-10: 1934356379', 'ISBN-13: 978-1934356371'], 'The Facets of Ruby')
+                @refp4 = Libro.new(['David Chelimsky','Dave Astels', 'Bryan Helmkamp', 'Dan North', 'Zach Dennis', 'Aslak Hellesoy'], 'The RSpecBook: Behaviour Driven Development with RSpec, Cucumber, and Friends', 'Pragmatic Bookshelf', '1', '25/12/2010', ['ISBN-10: 1934356379', 'ISBN-13: 978-1934356371'], 'The Facets of Ruby')
 
-                @refp5 = Referencias.new(['Richard E'], 'Silverman Git Pocket Guide', 'O Reilly Media', '1', '02/08/2013', ['ISBN-10: 1449325866', 'ISBN-13: 978-1449325862'])
+                @refp5 = Libro.new(['Richard E'], 'Silverman Git Pocket Guide', 'O Reilly Media', '1', '02/08/2013', ['ISBN-10: 1449325866', 'ISBN-13: 978-1449325862'])
                 @nodp1 = Nodo.new(@refp1, nil, nil)
                 @nodp2 = Nodo.new(@refp2, nil, nil)
                 @nodp3 = Nodo.new(@refp3, nil, nil)
@@ -140,7 +140,7 @@ describe Referencias do
 	end 
 
 	
-	describe "Almacenamiento de las referencias"  do
+	describe "Almacenamiento de las referencias de un libro con la clase libro"  do
 		it "Debe existir uno o mas autores y un metodo para acceder a ellos" do
 			
 			expect(@ref1.autor.length).to be > 1

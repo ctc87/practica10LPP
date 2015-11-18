@@ -119,20 +119,29 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 	end
 end
 
+class Referencias
+	attr_reader :autor, :titulo, :fecha, :fechaDate
+	
+	def initialize(autor, titulo, fecha)
+		@autor, @titulo, @fecha = autor, titulo, fecha           
+                 afecha = fecha.split(/\//)  
+                 @fechaDate = Date.new(afecha[2].to_i, afecha[1].to_i, afecha[0].to_i)
+
+	end
+end
 
 
   # Esta clase permite representar referncias bibliograficas de libros con: 
   # autor, titulo, serie, editorial, edicion, fecha de lanzamiento, codigo ISBN.
-class Referencias
+class Libro < Referencias 
 	
 	# Acceso a los atributos de la clase geters y seters
-	attr_reader :autor,:titulo, :serie, :editorial, :numEdicion, :fecha, :codISBN, :fechaDate
+	attr_reader :serie, :editorial, :numEdicion, :codISBN, :fechaDate
   	
 	# Constructor que asigna los atributos pasados por parametro y formatea la fecha a un tipo de dato fecha
 	def initialize(autor, titulo, editorial, numEdicion, fecha, codISBN, serie = 'null')
-		@autor, @titulo, @serie, @editorial, @numEdicion, @codISBN, @fecha = autor, titulo, serie, editorial, numEdicion, codISBN, fecha 
-		afecha = fecha.split(/\//)  
-		@fechaDate = Date.new(afecha[2].to_i, afecha[1].to_i, afecha[0].to_i)
+		@serie, @editorial, @numEdicion, @codISBN = serie, editorial, numEdicion, codISBN 
+		super(autor, titulo, fecha)
   	end
 	
 	# Metodo que imprime los autores formateados
@@ -178,4 +187,8 @@ class Referencias
 		end
 	end
 end
-end     
+
+end
+
+
+
