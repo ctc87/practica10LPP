@@ -76,6 +76,8 @@ describe Referencias do
 			expect(@listConContenido.cabeza).to eq(@nod1)
 			expect(@listConContenido.cabeza.nodoSiguiente).to eq(@nod2)
 			expect(@listConContenido.cabeza.nodoSiguiente.nodoSiguiente).to eq(@nod3)
+			expect(@listConContenido.cabeza.nodoSiguiente.nodoAnterior).to eq(@nod1)
+			expect(@listConContenido.ultimo.nodoAnterior).to eq(@nod2)
 			expect(@listConContenido.contadorNodos).to eq(3)
 		end
 		it "Debe existir un metodo para extraer el final de la lista" do
@@ -87,13 +89,17 @@ describe Referencias do
 			expect(@listConContenido.cabeza).to eq(@nod1)
 			expect(@listConContenido.cabeza.nodoSiguiente).to eq(@nod2)
 			expect(@listConContenido.ultimo).to eq(@nod2)
+			expect(@listConContenido.ultimo.nodoAnterior).to eq(@nod1)
+			expect(@listConContenido.ultimo.nodoSiguiente).to eq(nil)
 			expect(@listConContenido.contadorNodos).to eq(2)
+			
 		end
 		it "Debe existir un metodo para insertar en el inicio de la lista" do
 			expect(@listConContenido.cabeza).to eq(@nod1)
 			@listConContenido.insertarInicio(@nod2)
 			expect(@listConContenido.cabeza).to eq(@nod2)
 			expect(@listConContenido.ultimo).to eq(@nod1)
+			expect(@listConContenido.ultimo.nodoAnterior).to eq(@nod2)
 			expect(@listConContenido.contadorNodos).to eq(2)
 		end
 		it "Debe existir un metodo que permita insertar un nodo al principio de una lista vacia" do		
@@ -111,6 +117,7 @@ describe Referencias do
 			expect(@listConContenido.contadorNodos).to eq(3)
 			expect(@listConContenido.extraerCabeza).to eq(@nod1)
 			expect(@listConContenido.cabeza).to eq(@nod2)
+			expect(@listConContenido.cabeza.nodoAnterior).to eq(nil)
 			expect(@listConContenido.cabeza.nodoSiguiente).to eq(@nod3)
 			expect(@listConContenido.ultimo).to eq(@nod3)
 			expect(@listConContenido.contadorNodos).to eq(2)
@@ -119,7 +126,12 @@ describe Referencias do
 		
 		it "Debe existir un metodo para borrar la lista" do
                         @listConContenido.insertarFinal(@nod2)
+			expect(@listConContenido.cabeza.nodoAnterior).to eq(nil)
+			expect(@listConContenido.cabeza.nodoSiguiente).to eq(@nod2)
+			expect(@listConContenido.ultimo.nodoAnterior).to eq(@nod1)
+			expect(@listConContenido.ultimo.nodoSiguiente).to eq(nil)
                         @listConContenido.insertarFinal(@nod3)
+			expect(@listConContenido.cabeza.nodoAnterior).to eq(nil)
 			@listConContenido.borrar
 			expect(@listConContenido.vacia).to eq(true)
 			expect(@listConContenido.contadorNodos).to eq(0)

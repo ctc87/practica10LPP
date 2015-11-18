@@ -64,7 +64,9 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 		if(vacia)
 			self.cabeza = nodo
 		else
-			ultimo.nodoSiguiente = nodo 
+			nodo.nodoAnterior = ultimo
+			ultimo.nodoSiguiente = nodo
+			 
 		end 
 		self.contadorNodos+=1  
 	end
@@ -75,6 +77,7 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 			self.cabeza = nodo 
 		else
 			aux = cabeza
+			aux.nodoAnterior = nodo
 			self.cabeza = nodo 
 			self.cabeza.nodoSiguiente = aux
 		end
@@ -107,7 +110,10 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 			return nil
 		end
 		aux = cabeza
-		self.cabeza = self.cabeza.nodoSiguiente
+		self.cabeza = aux.nodoSiguiente
+		if(defined? self.cabeza.nodoAnterior)
+			self.cabeza.nodoAnterior = nil
+		end
 		self.contadorNodos-=1  
 		return aux	
 	end
