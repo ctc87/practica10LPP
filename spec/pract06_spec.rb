@@ -10,7 +10,7 @@ describe Referencias do
  		@nod1 = Nodo.new(@ref1, nil, nil)
 		@nod2 = Nodo.new(@ref2, nil, nil)
 		@nod3 = Nodo.new(@ref3, nil, nil)
-		@listVacia = Lista.new(nil)	
+		@listVacia = Lista.new()	
 		@listConContenido = Lista.new(@nod1)		
                 @refp1 = Referencias.new(['Dave Thomas','Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', 'Pragmatic Bookshelf', '4', '07/07/2013', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'The Facets of Ruby')
 
@@ -48,6 +48,10 @@ describe Referencias do
                         expect(@listVacia.cabeza).to eq (nil)
                         expect(@listConContenido.cabeza).to eq (@nod1)
                 end
+		it "Debe exisitir un contador de nodos que idique la medida de la lista" do
+			expect(@listConContenido.contadorNodos).to eq(1)
+			expect(@listVacia.contadorNodos).to eq(0)
+		end
         end
 
 	describe "Metodos de manejo de la lista enlazada" do
@@ -110,6 +114,7 @@ describe Referencias do
 			@listConContenido.borrar
 			expect(@listConContenido.vacia).to eq(true)
 		end
+
 	end 
 
 	

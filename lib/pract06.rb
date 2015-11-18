@@ -22,7 +22,19 @@ Nodo = Struct.new(:dato, :nodoSiguiente, :nodoAnterior)
 
   # Este struct es una lista enlazada que almacena los nodos 
   # y que permite su manipulación
-Lista = Struct.new(:cabeza) do
+Lista = Struct.new(:cabeza,:contadorNodos) do
+	# Constructor comprueba si tiene defuinido un nodo sigueinte y un nodo anterior o es nil (lista vacia)
+	def initialize(cabeza=nil)
+		if((defined? cabeza.nodoSiguiente) && (defined? cabeza.nodoAnterior))
+			self.cabeza = cabeza
+			self.contadorNodos = 1
+		elsif(cabeza == nil)
+			self.contadorNodos = 0
+		else
+			print "el parametro pasado ha de ser un nodo con siguiente y anterior"
+		end
+	end
+	
 	# Metodo que comprueba si está vacia
 	def vacia
 		vacia = cabeza == nil ? true : false 
