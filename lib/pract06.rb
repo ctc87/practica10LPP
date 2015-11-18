@@ -43,7 +43,7 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 	# Metodo que borra la lsita enlazada
 	def borrar
 		while(!vacia)
-			self.extraerCabeza	
+			self.extraerCabeza
 		end
 	end
 
@@ -66,6 +66,7 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 		else
 			ultimo.nodoSiguiente = nodo 
 		end 
+		self.contadorNodos+=1  
 	end
 	
 	# Metodo que inserta un nodo al principio de la lista
@@ -76,7 +77,8 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 			aux = cabeza
 			self.cabeza = nodo 
 			self.cabeza.nodoSiguiente = aux
-		end	
+		end
+		self.contadorNodos+=1  
 	end
 	
 	# Metodo que extrae el ultimo nodo de la lista
@@ -95,6 +97,7 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 		end	
 		aux = nodoActual.nodoSiguiente
 		nodoActual.nodoSiguiente = nil
+		self.contadorNodos-=1  
 		return aux 
 	end
 	
@@ -105,6 +108,7 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 		end
 		aux = cabeza
 		self.cabeza = self.cabeza.nodoSiguiente
+		self.contadorNodos-=1  
 		return aux	
 	end
 end
