@@ -7,9 +7,9 @@ describe Referencias do
 		@ref1 = Referencias.new(['autor1','autor2'], 'titulo', 'editorial', '1', '24/07/1990', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'serie') 
 		@ref2 = Referencias.new(['Dave Thomas','Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', 'Pragmatic Bookshelf', '4', '07/07/2013', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'The Facets of Ruby') 
 		@ref3 = Referencias.new(['autor1','autor2'], 'titulo', 'editorial', '1', '25/08/1999', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491']) 
- 		@nod1 = Nodo.new(@ref1, nil)
-		@nod2 = Nodo.new(@ref2, nil)
-		@nod3 = Nodo.new(@ref3, nil)
+ 		@nod1 = Nodo.new(@ref1, nil, nil)
+		@nod2 = Nodo.new(@ref2, nil, nil)
+		@nod3 = Nodo.new(@ref3, nil, nil)
 		@listVacia = Lista.new(nil)	
 		@listConContenido = Lista.new(@nod1)		
                 @refp1 = Referencias.new(['Dave Thomas','Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', 'Pragmatic Bookshelf', '4', '07/07/2013', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'The Facets of Ruby')
@@ -21,18 +21,19 @@ describe Referencias do
                 @refp4 = Referencias.new(['David Chelimsky','Dave Astels', 'Bryan Helmkamp', 'Dan North', 'Zach Dennis', 'Aslak Hellesoy'], 'The RSpecBook: Behaviour Driven Development with RSpec, Cucumber, and Friends', 'Pragmatic Bookshelf', '1', '25/12/2010', ['ISBN-10: 1934356379', 'ISBN-13: 978-1934356371'], 'The Facets of Ruby')
 
                 @refp5 = Referencias.new(['Richard E'], 'Silverman Git Pocket Guide', 'O Reilly Media', '1', '02/08/2013', ['ISBN-10: 1449325866', 'ISBN-13: 978-1449325862'])
-                @nodp1 = Nodo.new(@refp1, nil)
-                @nodp2 = Nodo.new(@refp2, nil)
-                @nodp3 = Nodo.new(@refp3, nil)
-                @nodp4 = Nodo.new(@refp4, nil)
-                @nodp5 = Nodo.new(@refp5, nil)
+                @nodp1 = Nodo.new(@refp1, nil, nil)
+                @nodp2 = Nodo.new(@refp2, nil, nil)
+                @nodp3 = Nodo.new(@refp3, nil, nil)
+                @nodp4 = Nodo.new(@refp4, nil, nil)
+                @nodp5 = Nodo.new(@refp5, nil, nil)
                 @listaEnlazada = Lista.new(nil)
 	end  
 	
 	describe "Nodo para la lista enlazada"	do
-		it "Debe existir un nodo con su dato y referencia al siguiente nodo apuntando a nil" do
-			expect(@nod1.nodoSiguiente).to eq(nil)
+		it "Debe existir un nodo con su dato y referencia al siguiente nodo apuntando a nil y su referencia al anterior nodo apuntando a nil tambien" do
 			expect(@nod1.dato).to eq(@ref1)
+			expect(@nod1.nodoAnterior).to eq(nil)
+			expect(@nod1.nodoSiguiente).to eq(nil)
 		end
 	end
  

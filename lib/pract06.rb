@@ -18,7 +18,7 @@ module Practica7
   # Este struct es un nodo con un enlaze para una lista 
   # Enlazada que contendrá las referencias bibliograficas.
 
-Nodo = Struct.new(:dato, :nodoSiguiente) 
+Nodo = Struct.new(:dato, :nodoSiguiente, :nodoAnterior) 
 
   # Este struct es una lista enlazada que almacena los nodos 
   # y que permite su manipulación
