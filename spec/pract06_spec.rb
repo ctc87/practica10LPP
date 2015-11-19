@@ -31,7 +31,7 @@ describe Referencias do
 		# parte de la herencia
 		@articuloRevista = ArticuloRevista.new(["Anonimo"],"ESCUELAS TALLER, CASAS DE OFICIOS Y TALLERES DE EMPLEO DE LA COMUNIDAD VALENCIANA", '01/05/2006', [24, 25], "Formacion y empleo", 'Camara')
  		@articuloPeriodico = ArticuloPeriodico.new(["Alvaro Torres"],"la cantinela del sin sentido", '02/07/2010', [35, 36], "Internacional", 'EL PAIS')
-		#@documentoElectronico = DocumentoElectronico.new()
+		@documentoElectronico = DocumentoElectronico.new(["Pablo Ramos", "Enrique Sevilla"], "El sobrepero", "09/08/2010", "www.articuloejemplo.com/el&sobrepeso")
 		
 	end  
 	
@@ -230,7 +230,7 @@ describe Referencias do
 	end
 
         describe "Almacenamiento de las referencias de la clase ArticuloRevista " do
-                it "Deberia existir un articulo de revista con su titulo y un metodo para acceder a el" do
+                it "Deberia existir un articulo de revista con su titulo, fecha, autor, paginas, seccion y revista y los metodos para acceder a estos" do
 			expect(@articuloRevista.titulo).to eq("ESCUELAS TALLER, CASAS DE OFICIOS Y TALLERES DE EMPLEO DE LA COMUNIDAD VALENCIANA")
 			expect(@articuloRevista.fecha).to eq('01/05/2006')
 			expect(@articuloRevista.autor[0]).to eq('Anonimo')
@@ -238,13 +238,14 @@ describe Referencias do
 			expect(@articuloRevista.paginas[1]).to eq(25)
 			expect(@articuloRevista.revista).to eq('Camara')
 			expect(@articuloRevista.seccion).to eq('Formacion y empleo')
+		end
+		it "Deeberia existir un metodo para obtener la salida formateada" do
 			expect(@articuloRevista.salidaFormateada).to eq("CamaraAnonimo.\nESCUELAS TALLER, CASAS DE OFICIOS Y TALLERES DE EMPLEO DE LA COMUNIDAD VALENCIANA\npaginas:24, 25.; seccion: Formacion y empleo (May 1, 2006)\n")
-			
-                end
+		end	
         end
 
         describe "Almacenamiento de las referencias de la clase articuloaPeriodico " do
-                it "Deberia existir un articulo de Periodico con su titulo y un metodo para acceder a el" do
+                it "Deberia existir un articulo de Periodico con su titulo, fecha, autor, paginas, seccion periodico y los metodos para acceder a estos" do
                         expect(@articuloPeriodico.titulo).to eq("la cantinela del sin sentido")
                         expect(@articuloPeriodico.fecha).to eq('02/07/2010')
                         expect(@articuloPeriodico.autor[0]).to eq('Alvaro Torres')
@@ -252,9 +253,27 @@ describe Referencias do
                         expect(@articuloPeriodico.paginas[1]).to eq(36)
                         expect(@articuloPeriodico.periodico).to eq('EL PAIS')
                         expect(@articuloPeriodico.seccion).to eq('Internacional')
+		end
+		it "Deeberia existir un metodo para obtener la salida formateada" do
 			expect(@articuloPeriodico.salidaFormateada).to eq("EL PAISAlvaro Torres.\nla cantinela del sin sentido\npaginas:35, 36.; seccion: Internacional (July 2, 2010)\n")
-			
+						
                 end
+        end
+
+        describe "Almacenamiento de las referencias de la clase DocumentoElectronico" do
+                it "Deberia existir un documento electronico con su titulo, su fecha, autor y link y los metodos para acceder a estos" do
+                        expect(@documentoElectronico.titulo).to eq("El sobrepero")
+                        expect(@documentoElectronico.fecha).to eq('09/08/2010')
+                        expect(@documentoElectronico.autor[0]).to eq('Pablo Ramos')
+                        expect(@documentoElectronico.autor[1]).to eq('Enrique Sevilla')
+                        expect(@documentoElectronico.link).to eq('www.articuloejemplo.com/el&sobrepeso')
+
+                end
+                it "Deeberia existir un metodo para obtener la salida formateada" do
+                        expect(@documentoElectronico.salidaFormateada).to eq("El sobrepero por Pablo Ramos, Enrique Sevilla.\nlink:www.articuloejemplo.com/el&sobrepeso\n (August 9, 2010)\n")
+
+                end
+
         end
 
 end

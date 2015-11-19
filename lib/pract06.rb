@@ -154,6 +154,28 @@ class Referencias
 
 end
 
+# Esta clase permite representar referncias bibliograficas de documentos electronicos 
+# destinada a crear objetos si no a la herencia, sus atributos son: 
+# pagina, seccion.
+class DocumentoElectronico < Referencias
+        # Acceso a los atributos de la clase geters y seters
+        attr_reader :link
+
+        # Constructor que asigna los atributos pasados por parametro y formatea la fecha a un tipo de dato fecha
+        def initialize(autor, titulo, fecha, link)
+                @link = link
+                super(autor, titulo, fecha)
+        end
+
+        # Metodo que imprime toda la referencia a un libro formateada
+        def salidaFormateada()
+                 salida = "#{@titulo} por #{autorPrint()}\nlink:#{@link}\n (#{fechaFormateada()})\n"
+        end
+
+end
+
+
+
 # Esta clase permite representar referncias bibliograficas de Articulos
 # hereda de Referencias aun que es una clase no 
 # destinada a crear objetos si no a la herencia, sus atributos son: 
