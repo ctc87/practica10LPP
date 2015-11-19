@@ -12,7 +12,7 @@ require 'date'
 # Author::    Carlos Troyano Carmona  (mailto:carlos@gmail.com)
 # Copyright:: Cretive Commons
 # License::   Distributes under the same terms as Ruby
-
+#
 module Practica7
   
   # Este struct es un nodo con un enlaze para una lista 

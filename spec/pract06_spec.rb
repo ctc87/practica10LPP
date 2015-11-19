@@ -276,4 +276,42 @@ describe Referencias do
 
         end
 
+describe "Pruebas de pertencia a la jerarquia " do
+                it "Documento electronico deberia ser un DocumentoElectronico y Referencias e instacia de DocumentoElectronico" do
+			expect(@documentoElectronico.instance_of? DocumentoElectronico).to eq(true)
+			expect(@documentoElectronico.instance_of? Referencias).to eq(false)
+			expect(@documentoElectronico.is_a? DocumentoElectronico).to eq(true)
+			expect(@documentoElectronico.is_a? Referencias).to eq(true)
+				
+		end
+                it "Articulo periodico deberia ser un Articulo y un ArticuloPeriodico y una Referencia e instacia ArticuloPeriodico" do
+                        expect(@articuloPeriodico.instance_of? ArticuloPeriodico).to eq(true)
+                        expect(@articuloPeriodico.instance_of? Articulo).to eq(false)
+                        expect(@articuloPeriodico.instance_of? Referencias).to eq(false)
+                        expect(@articuloPeriodico.is_a? Referencias).to eq(true)
+                        expect(@articuloPeriodico.is_a? Articulo).to eq(true)
+                        expect(@articuloPeriodico.is_a? ArticuloPeriodico).to eq(true)
+
+                end
+                it "Articulo revista deberia ser un Articulo y un ArticuloRevista y una Referencia e instacia ArticuloRevista" do
+                        expect(@articuloRevista.instance_of? ArticuloRevista).to eq(true)
+                        expect(@articuloRevista.instance_of? Articulo).to eq(false)
+                        expect(@articuloRevista.instance_of? Referencias).to eq(false)
+                        expect(@articuloRevista.is_a? Referencias).to eq(true)
+                        expect(@articuloRevista.is_a? Articulo).to eq(true)
+                        expect(@articuloRevista.is_a? ArticuloRevista).to eq(true)
+
+                end
+                it "ref1 deberia ser un Libro y una Referencia y una instancia de libro" do
+                        expect(@ref1.instance_of? Referencias).to eq(false)
+                        expect(@ref1.instance_of? Libro).to eq(true)
+                        expect(@ref1.is_a? Referencias).to eq(true)
+                        expect(@ref1.is_a? Libro).to eq(true)
+
+                end
+
+
+
+        end
+
 end
