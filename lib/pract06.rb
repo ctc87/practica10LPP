@@ -119,15 +119,110 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 	end
 end
 
+# Esta clase permite representar referncias bibliograficas aun que es una clase no 
+# a crear objetos si no a la herencia sus atributos son:: 
+# autor, titulo y fecha.
 class Referencias
+	# Acceso a los atributos de la clase geters y seters
 	attr_reader :autor, :titulo, :fecha, :fechaDate
 	
+	# Constructor que asigna los atributos pasados por parametro y formatea la fecha a un tipo de dato fecha
 	def initialize(autor, titulo, fecha)
 		@autor, @titulo, @fecha = autor, titulo, fecha           
                  afecha = fecha.split(/\//)  
                  @fechaDate = Date.new(afecha[2].to_i, afecha[1].to_i, afecha[0].to_i)
 
 	end
+         # Metodo que imprime los autores formateados
+         def autorPrint()
+                 autores = ""
+                 size = @autor.length - 1
+                 for i in 0..size
+                         if i != size
+                                 autores += "#{@autor[i]}, "
+                         else
+                                 autores += "#{@autor[i]}."
+                         end
+                 end
+                 return autores
+         end
+ 
+         # Metodo que imprime la fecha formateada
+         def fechaFormateada()
+                 fechaFormateada = "#{@fechaDate.strftime("%B")} #{@fechaDate.mday}, #{@fechaDate.year}"
+         end
+
+end
+
+# Esta clase permite representar referncias bibliograficas de Articulos
+# hereda de Referencias aun que es una clase no 
+# destinada a crear objetos si no a la herencia, sus atributos son: 
+# pagina, seccion.
+class Articulo < Referencias
+	# Acceso a los atributos de la clase geters y seters
+	attr_reader :paginas, :seccion
+	
+	# Constructor que asigna los atributos pasados por parametro y formatea la fecha a un tipo de dato fecha
+        def initialize(autor, titulo, fecha, paginas, seccion)
+                @paginas, @seccion = paginas, seccion
+                super(autor, titulo, fecha)
+        end
+   
+	# Metodo que imprime los numeros de pagina
+	def paginasPrint()
+                 paginas = ""
+                 size = @paginas.length - 1
+                 for i in 0..size
+                         if i != size
+                                 paginas += "#{@paginas[i]}, "
+                         else
+                                 paginas += "#{@paginas[i]}."
+                         end
+                 end
+                 return paginas
+        end
+
+
+end
+
+# Esta clase permite representar referncias bibliograficas de Articulos
+# de Periodico hereda de Articulos, sus atributos son: 
+# periodico
+class ArticuloPeriodico < Articulo
+	# Acceso a los atributos de la clase geters y seters
+         attr_reader :periodico
+ 
+         # Constructor que asigna los atributos pasados por parametro 
+         def initialize(autor, titulo, fecha, paginas, seccion, periodico)
+                 @periodico = periodico
+                 super(autor, titulo, fecha, paginas, seccion)
+         end
+
+	# Metodo que imprime toda la referencia a un libro formateada
+	def salidaFormateada()
+		salida = "#{@periodico}#{autorPrint()}\n#{@titulo}\npaginas:#{paginasPrint()}; seccion: #{@seccion} (#{fechaFormateada()})\n"
+        end
+
+end
+
+ # Esta clase permite representar referncias bibliograficas de Articulos
+ # de revista hereda de Articulos, sus atributos son: 
+ # revista
+class ArticuloRevista < Articulo
+        # Acceso a los atributos de la clase geters y seters
+        attr_reader :revista
+
+        # Constructor que asigna los atributos pasados por parametro 
+	def initialize(autor, titulo, fecha, paginas, seccion, revista)
+                 @revista = revista
+                 super(autor, titulo, fecha, paginas, seccion)
+        end
+
+        # Metodo que imprime toda la referencia a un libro formateada
+        def salidaFormateada()
+                salida = "#{@revista}#{autorPrint()}\n#{@titulo}\npaginas:#{paginasPrint()}; seccion: #{@seccion} (#{fechaFormateada()})\n"
+        end
+ 
 end
 
 
@@ -138,30 +233,12 @@ class Libro < Referencias
 	# Acceso a los atributos de la clase geters y seters
 	attr_reader :serie, :editorial, :numEdicion, :codISBN, :fechaDate
   	
-	# Constructor que asigna los atributos pasados por parametro y formatea la fecha a un tipo de dato fecha
+	# Constructor que asigna los atributos pasados por parametro e invoca al
+	# constructor del padre pasandole los parametros pertinentes 
 	def initialize(autor, titulo, editorial, numEdicion, fecha, codISBN, serie = 'null')
 		@serie, @editorial, @numEdicion, @codISBN = serie, editorial, numEdicion, codISBN 
 		super(autor, titulo, fecha)
   	end
-	
-	# Metodo que imprime los autores formateados
-	def autorPrint()
-		autores = ""
-		size = @autor.length - 1 
-		for i in 0..size
-			if i != size
-				autores += "#{@autor[i]}, "
-			else
-				autores += "#{@autor[i]}."
-			end
-		end
-		return autores
-	end
-	
-	# Metodo que imprime la fecha formateada
-	def fechaFormateada()
-		fechaFormateada = "#{@fechaDate.strftime("%B")} #{@fechaDate.mday}, #{@fechaDate.year}"
-	end
 	
 	# Metodo que imprime los codigos ISBN formateados
 	def codISBNprint()
@@ -177,7 +254,7 @@ class Libro < Referencias
 		return listadoISBN
 	end
 
-	# Metodo que imprime toda la referencia formateada
+	# Metodo que imprime toda la referencia a un libro formateada
 	def salidaFormateada()
 		if @serie != "null"
 			salida = "#{autorPrint()}\n#{@titulo}\n(#{@serie})\n#{@editorial}; #{@numEdicion} edition (#{fechaFormateada()})\n#{codISBNprint()}"
@@ -187,6 +264,9 @@ class Libro < Referencias
 		end
 	end
 end
+
+
+
 
 end
 

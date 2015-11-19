@@ -27,6 +27,12 @@ describe Referencias do
                 @nodp4 = Nodo.new(@refp4, nil, nil)
                 @nodp5 = Nodo.new(@refp5, nil, nil)
                 @listaEnlazada = Lista.new(nil)
+		
+		# parte de la herencia
+		@articuloRevista = ArticuloRevista.new(["Anonimo"],"ESCUELAS TALLER, CASAS DE OFICIOS Y TALLERES DE EMPLEO DE LA COMUNIDAD VALENCIANA", '01/05/2006', [24, 25], "Formacion y empleo", 'Camara')
+ 		@articuloPeriodico = ArticuloPeriodico.new(["Alvaro Torres"],"la cantinela del sin sentido", '02/07/2010', [35, 36], "Internacional", 'EL PAIS')
+		#@documentoElectronico = DocumentoElectronico.new()
+		
 	end  
 	
 	describe "Nodo para la lista enlazada"	do
@@ -222,4 +228,33 @@ describe Referencias do
 					
 		end
 	end
+
+        describe "Almacenamiento de las referencias de la clase ArticuloRevista " do
+                it "Deberia existir un articulo de revista con su titulo y un metodo para acceder a el" do
+			expect(@articuloRevista.titulo).to eq("ESCUELAS TALLER, CASAS DE OFICIOS Y TALLERES DE EMPLEO DE LA COMUNIDAD VALENCIANA")
+			expect(@articuloRevista.fecha).to eq('01/05/2006')
+			expect(@articuloRevista.autor[0]).to eq('Anonimo')
+			expect(@articuloRevista.paginas[0]).to eq(24)
+			expect(@articuloRevista.paginas[1]).to eq(25)
+			expect(@articuloRevista.revista).to eq('Camara')
+			expect(@articuloRevista.seccion).to eq('Formacion y empleo')
+			expect(@articuloRevista.salidaFormateada).to eq("CamaraAnonimo.\nESCUELAS TALLER, CASAS DE OFICIOS Y TALLERES DE EMPLEO DE LA COMUNIDAD VALENCIANA\npaginas:24, 25.; seccion: Formacion y empleo (May 1, 2006)\n")
+			
+                end
+        end
+
+        describe "Almacenamiento de las referencias de la clase articuloaPeriodico " do
+                it "Deberia existir un articulo de Periodico con su titulo y un metodo para acceder a el" do
+                        expect(@articuloPeriodico.titulo).to eq("la cantinela del sin sentido")
+                        expect(@articuloPeriodico.fecha).to eq('02/07/2010')
+                        expect(@articuloPeriodico.autor[0]).to eq('Alvaro Torres')
+                        expect(@articuloPeriodico.paginas[0]).to eq(35)
+                        expect(@articuloPeriodico.paginas[1]).to eq(36)
+                        expect(@articuloPeriodico.periodico).to eq('EL PAIS')
+                        expect(@articuloPeriodico.seccion).to eq('Internacional')
+			expect(@articuloPeriodico.salidaFormateada).to eq("EL PAISAlvaro Torres.\nla cantinela del sin sentido\npaginas:35, 36.; seccion: Internacional (July 2, 2010)\n")
+			
+                end
+        end
+
 end
