@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ctc87/practica7LPP.svg?branch=master)](https://travis-ci.org/ctc87/practica7LPP)
+[![Build Status](https://travis-ci.org/ctc87/practica8LPP.svg?branch=master)](https://travis-ci.org/ctc87/practica8LPP)
 [![Coverage Status](https://coveralls.io/repos/ctc87/practica8LPP/badge.svg?branch=master&service=github)](https://coveralls.io/github/ctc87/practica8LPP?branch=master)
 # Pract07
 
