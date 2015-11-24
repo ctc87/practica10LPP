@@ -319,7 +319,7 @@ describe Referencias do
 
 
         end
-	describe "Pruebas mixins comparable y enumerable para las instancias de la jerarquia" do
+	describe "Pruebas mixins comparable para las instancias de la jerarquia" do
                 it "Deberia existir un metodo mixin para comparar instancias de de articulos por fechas pero no con isntancias de otras clases aunque hereden de Referencias tambien" do
                         expect(@articuloPeriodico12010).to eq(@articuloPeriodico22010)
 			expect(@articuloRevista).to eq(@articuloPeriodicoComparableRevista)
@@ -336,4 +336,19 @@ describe Referencias do
 			expect(@ref3).not_to eq(@libroNoComparable)	
 		end
 	end
+
+	describe "Pruebas mixin comparable y enumerable para la lsita enlazada " do
+		it "Deberia existir un Mixin enumerable para poder recorrer las fechas de las referencias de los nodos de la lista " do
+			@listaEnlazada.insertarInicio(@nodp1)
+                        @listaEnlazada.insertarFinal(@nodp2)
+                        @listaEnlazada.insertarFinal(@nodp3)
+                        @listaEnlazada.insertarFinal(@nodp4)
+                        @listaEnlazada.insertarInicio(@nodp5)
+                        expect(@listaEnlazada.max.to_s).to eq("2013-08-02")
+                        expect(@listaEnlazada.min.to_s).to eq("2008-02-04")
+
+		end
+	end
+	
+	
 end

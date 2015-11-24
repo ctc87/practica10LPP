@@ -18,7 +18,15 @@ module Practica7
   # Este struct es un nodo con un enlaze para una lista 
   # Enlazada que contendrá las referencias bibliograficas.
 
-Nodo = Struct.new(:dato, :nodoSiguiente, :nodoAnterior) 
+Nodo = Struct.new(:dato, :nodoSiguiente, :nodoAnterior) do
+        include Comparable
+        # Se define para incluir el mixin comparable
+        # Se toma como valor para la comparación la fecha. 
+        def <=>(other)
+                self.fecha <=> other.fecha
+        end
+
+end
 
   # Este struct es una lista enlazada que almacena los nodos 
   # y que permite su manipulación
@@ -34,6 +42,18 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 			print "el parametro pasado ha de ser un nodo con siguiente y anterior"
 		end
 	end
+
+	# Mixin enumerable que recorre las fechas de las referencias almacenadas en 
+	# los nodos que componen la lista para ello sobrecargamos el método each
+	include Enumerable
+	def each
+		size = self.contadorNodos - 1
+        	aux = self.cabeza
+        	for i in 0..size
+			yield aux.dato.fechaDate
+                	aux = aux.nodoSiguiente
+        	end
+  	end
 	
 	# Metodo que comprueba si está vacia
 	def vacia
