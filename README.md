@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/ctc87/practica8LPP.svg?branch=master)](https://travis-ci.org/ctc87/practica8LPP)
-[![Coverage Status](https://coveralls.io/repos/ctc87/practica8LPP/badge.svg?branch=master&service=github)](https://coveralls.io/github/ctc87/practica8LPP?branch=master)
+[![Build Status](https://travis-ci.org/ctc87/practica9LPP.svg?branch=master)](https://travis-ci.org/ctc87/practica9LPP)
+[![Coverage Status](https://coveralls.io/repos/ctc87/practica9LPP/badge.svg?branch=master&service=github)](https://coveralls.io/github/ctc87/practica9LPP?branch=master)
 # Pract08
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pract06`. To experiment with that code, run `bin/console` for an interactive prompt.
