@@ -158,7 +158,9 @@ end
 # destinada a crear objetos si no a la herencia, sus atributos son: 
 # pagina, seccion.
 class DocumentoElectronico < Referencias
-        # Acceso a los atributos de la clase geters y seters
+        include Comparable
+	
+	# Acceso a los atributos de la clase geters y seters
         attr_reader :link
 
         # Constructor que asigna los atributos pasados por parametro y formatea la fecha a un tipo de dato fecha
@@ -171,6 +173,13 @@ class DocumentoElectronico < Referencias
         def salidaFormateada()
                  salida = "#{@titulo} por #{autorPrint()}\nlink:#{@link}\n (#{fechaFormateada()})\n"
         end
+	
+	# Se define para incluir el mixin comparable
+        # Se toma como valor para la comparación la fecha. 
+        def <=>(other)
+                return nil unless other.instance_of? DocumentoElectronico
+                self.fecha <=> other.fecha
+        end
 
 end
 
@@ -181,6 +190,7 @@ end
 # destinada a crear objetos si no a la herencia, sus atributos son: 
 # pagina, seccion.
 class Articulo < Referencias
+    	include Comparable
 	# Acceso a los atributos de la clase geters y seters
 	attr_reader :paginas, :seccion
 	
@@ -204,6 +214,14 @@ class Articulo < Referencias
                  return paginas
         end
 
+        # Se define para incluir el mixin comparable
+        # Se toma como valor para la comparación la fecha. 
+        def <=>(other)
+                return nil unless other.is_a? Articulo
+                self.fecha <=> other.fecha
+        end
+
+
 
 end
 
@@ -224,6 +242,7 @@ class ArticuloPeriodico < Articulo
 	def salidaFormateada()
 		salida = "#{@periodico}#{autorPrint()}\n#{@titulo}\npaginas:#{paginasPrint()}; seccion: #{@seccion} (#{fechaFormateada()})\n"
         end
+	
 
 end
 
@@ -232,13 +251,13 @@ end
  # revista
 class ArticuloRevista < Articulo
         # Acceso a los atributos de la clase geters y seters
-        attr_reader :revista
-
-        # Constructor que asigna los atributos pasados por parametro 
+        attr_reader :revista 
+        
+	# Constructor que asigna los atributos pasados por parametro 
 	def initialize(autor, titulo, fecha, paginas, seccion, revista)
                  @revista = revista
                  super(autor, titulo, fecha, paginas, seccion)
-        end
+	end
 
         # Metodo que imprime toda la referencia a un libro formateada
         def salidaFormateada()
@@ -251,7 +270,7 @@ end
   # Esta clase permite representar referncias bibliograficas de libros con: 
   # autor, titulo, serie, editorial, edicion, fecha de lanzamiento, codigo ISBN.
 class Libro < Referencias 
-	
+	include Comparable	
 	# Acceso a los atributos de la clase geters y seters
 	attr_reader :serie, :editorial, :numEdicion, :codISBN, :fechaDate
   	
@@ -285,6 +304,12 @@ class Libro < Referencias
 			
 		end
 	end
+	# Se define para incluir el mixin comparable
+        # Se toma como valor para la comparación la fecha. 
+        def <=>(other)
+                return nil unless other.instance_of? Libro
+                self.fecha <=> other.fecha
+        end
 end
 
 

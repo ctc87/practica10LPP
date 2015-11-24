@@ -31,8 +31,14 @@ describe Referencias do
 		# parte de la herencia
 		@articuloRevista = ArticuloRevista.new(["Anonimo"],"ESCUELAS TALLER, CASAS DE OFICIOS Y TALLERES DE EMPLEO DE LA COMUNIDAD VALENCIANA", '01/05/2006', [24, 25], "Formacion y empleo", 'Camara')
  		@articuloPeriodico = ArticuloPeriodico.new(["Alvaro Torres"],"la cantinela del sin sentido", '02/07/2010', [35, 36], "Internacional", 'EL PAIS')
+		@articuloPeriodico22010 = ArticuloPeriodico.new(["Alvaro"],"el sin sentido", '09/08/2010', [35, 36], "Internacional", 'EL PAIS')
 		@documentoElectronico = DocumentoElectronico.new(["Pablo Ramos", "Enrique Sevilla"], "El sobrepero", "09/08/2010", "www.articuloejemplo.com/el&sobrepeso")
-		
+		@documentoElectronicoComparable = DocumentoElectronico.new(["Enrique Sevilla"], "El fascismo", "09/08/2010", "www.articuloejemplo.com/el&sobrepeso")
+		@documentoElectronicoNoComparable = DocumentoElectronico.new(["Enrique Sevilla"], "El fascismo", "10/08/2010", "www.articuloejemplo.com/el&sobrepeso")
+		@articuloPeriodico12010 = ArticuloPeriodico.new(["Alvaro Torres"],"la cantinela del sin sentido", '09/08/2010', [35, 36], "Internacional", 'EL PAIS')
+		@articuloPeriodicoComparableRevista = ArticuloPeriodico.new(["Alvaro Torres"],"la cantinela del sin sentido", '01/05/2006', [35, 36], "Internacional", 'EL PAIS')
+		@libroComparable = Libro.new(['autor1'], 'titulo1', 'editorial', '1', '25/08/1999', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491']) 
+		@libroNoComparable = Libro.new(['autor1','autor2'], 'titulo', 'editorial', '1', '26/08/1999', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491']) 
 	end  
 	
 	describe "Nodo para la lista enlazada"	do
@@ -276,7 +282,7 @@ describe Referencias do
 
         end
 
-describe "Pruebas de pertencia a la jerarquia " do
+	describe "Pruebas de pertencia a la jerarquia " do
                 it "Documento electronico deberia ser un DocumentoElectronico y Referencias e instacia de DocumentoElectronico" do
 			expect(@documentoElectronico.instance_of? DocumentoElectronico).to eq(true)
 			expect(@documentoElectronico.instance_of? Referencias).to eq(false)
@@ -313,5 +319,21 @@ describe "Pruebas de pertencia a la jerarquia " do
 
 
         end
+	describe "Pruebas mixins comparable y enumerable para las instancias de la jerarquia" do
+                it "Deberia existir un metodo mixin para comparar instancias de de articulos por fechas pero no con isntancias de otras clases aunque hereden de Referencias tambien" do
+                        expect(@articuloPeriodico12010).to eq(@articuloPeriodico22010)
+			expect(@articuloRevista).to eq(@articuloPeriodicoComparableRevista)
+			expect(@articuloPeriodico22010).not_to eq(@documentoElectronico)
+                end
 
+		it "Deberia existir un metodo mixin para comparar documentos electronicos por fecha" do
+			expect(@documentoElectronico).to eq(@documentoElectronicoComparable)
+			expect(@documentoElectronico).not_to eq(@documentoElectronicoNoComparable)
+		end
+		
+		it "Deberia existir un metodo mixin para comparar libros por fecha" do
+			expect(@ref3).to eq(@libroComparable)
+			expect(@ref3).not_to eq(@libroNoComparable)	
+		end
+	end
 end
