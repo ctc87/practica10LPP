@@ -159,10 +159,18 @@ class Referencias
                  size = @autor.length - 1
                  for i in 0..size
                          if i != size
-                                 autores += "#{@autor[i]}, "
+				 if @autor[i].split.size > 1
+                                 	autores += "#{@autor[i].split[1]} #{@autor[i].split[0]}, "
+				 else
+                                 	autores += "#{@autor[i]}, "
+				 end
                          else
-                                 autores += "#{@autor[i]}."
-                         end
+				 if @autor[i].split.size > 1
+                                 	autores += "#{@autor[i].split[1]} #{@autor[i].split[0]}."
+                        	 else 
+                                 	autores += "#{@autor[i]}."
+				 end
+			end
                  end
                  return autores
          end
@@ -171,20 +179,32 @@ class Referencias
          def fechaFormateada()
                  fechaFormateada = "#{@fechaDate.strftime("%B")} #{@fechaDate.mday}, #{@fechaDate.year}"
          end
+	
+	def getPrimerApellido 
+		apellido = autor[0]
+		if apellido.split.length > 1
+			apellido = apellido.split[1]
+		end
+		return apellido
+	end
+
+	def getAnyo
+		anyo = fecha.split("/")[2]
+	end	
 
 	include Comparable
         # Se define para incluir el mixin comparable
         # Se toma como valor para la comparación la fecha. 
         def <=>(other)
                         
-        	# Si los autores son iguales, se compara por el año
-        	#if 
-		#	self.getPrimerApellido != anOther.getPrimerApellido
-         	#   	self.getPrimerApellido <=> anOther.getPrimerApellido
-                #
-        	#else
-            	#	self.get_year <=> anOther.get_year
-        	#end 
+        	# Si los apellidos de los autores son iguales, se compara por el año
+        	if 
+			self.getPrimerApellido != anOther.getPrimerApellido
+         	   	self.getPrimerApellido <=> anOther.getPrimerApellido
+                
+        	else
+            		self.getAnyo <=> anOther.getAnyo
+        	end 
         end
 
 end
@@ -259,7 +279,7 @@ class ArticuloPeriodico < Articulo
 
 	# Metodo que imprime toda la referencia a un libro formateada
 	def salidaFormateada()
-		salida = "#{@periodico}#{autorPrint()}\n#{@titulo}\npaginas:#{paginasPrint()}; seccion: #{@seccion} (#{fechaFormateada()})\n"
+		salida = "#{@periodico}, #{autorPrint()}\n#{@titulo}\npaginas:#{paginasPrint()}; seccion: #{@seccion} (#{fechaFormateada()})\n"
         end
 	
 

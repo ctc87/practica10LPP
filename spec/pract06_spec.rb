@@ -201,7 +201,7 @@ describe Referencias do
 		end
 		it "Debe existir un metodo para obtener la referencia completa formateada con o sin serie" do
 			expect(@ref1.salidaFormateada()).to eq("autor1, autor2.\ntitulo\n(serie)\neditorial; 1 edition (July 24, 1990)\nISBN-13: 978-1937785499\nISBN-10: 1937785491")
-			expect(@ref2.salidaFormateada()).to eq("Dave Thomas, Andy Hunt, Chad Fowler.\nProgramming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide\n(The Facets of Ruby)\nPragmatic Bookshelf; 4 edition (July 7, 2013)\nISBN-13: 978-1937785499\nISBN-10: 1937785491")
+			expect(@ref2.salidaFormateada()).to eq("Thomas Dave, Hunt Andy, Fowler Chad.\nProgramming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide\n(The Facets of Ruby)\nPragmatic Bookshelf; 4 edition (July 7, 2013)\nISBN-13: 978-1937785499\nISBN-10: 1937785491")
 			expect(@ref3.salidaFormateada()).to eq("autor1, autor2.\ntitulo\neditorial; 1 edition (August 25, 1999)\nISBN-13: 978-1937785499\nISBN-10: 1937785491")
 		end
 	end
@@ -261,7 +261,7 @@ describe Referencias do
                         expect(@articuloPeriodico.seccion).to eq('Internacional')
 		end
 		it "Deeberia existir un metodo para obtener la salida formateada" do
-			expect(@articuloPeriodico.salidaFormateada).to eq("EL PAISAlvaro Torres.\nla cantinela del sin sentido\npaginas:35, 36.; seccion: Internacional (July 2, 2010)\n")
+			expect(@articuloPeriodico.salidaFormateada).to eq("EL PAIS, Torres Alvaro.\nla cantinela del sin sentido\npaginas:35, 36.; seccion: Internacional (July 2, 2010)\n")
 						
                 end
         end
@@ -276,7 +276,7 @@ describe Referencias do
 
                 end
                 it "Deeberia existir un metodo para obtener la salida formateada" do
-                        expect(@documentoElectronico.salidaFormateada).to eq("El sobrepero por Pablo Ramos, Enrique Sevilla.\nlink:www.articuloejemplo.com/el&sobrepeso\n (August 9, 2010)\n")
+                        expect(@documentoElectronico.salidaFormateada).to eq("El sobrepero por Ramos Pablo, Sevilla Enrique.\nlink:www.articuloejemplo.com/el&sobrepeso\n (August 9, 2010)\n")
 
                 end
 
@@ -319,7 +319,13 @@ describe Referencias do
 
 	describe "Pruebas de los nuevos metods de acceso para mostrar las referencias en formato APA" do
 		it "Deberia Existir un metodo getPrimerApellido que obtenga el primer apellido del primer autor de la referencia" do
-			expect(@articuloRevista.getPrimerApellido).to eq("bolson")
+			expect(@articuloRevista.getPrimerApellido).to eq("Anonimo")
+			expect(@refp2.getPrimerApellido).to eq("Chacon")
+		end
+		
+		it "Deberia existir un metodo getAnyo que devuelva el anyo" do
+
+			expect(@articuloRevista.getAnyo).to eq("2006")	
 		end
 	end
 	describe "Pruebas mixins comparable para las instancias de la jerarquia" do
