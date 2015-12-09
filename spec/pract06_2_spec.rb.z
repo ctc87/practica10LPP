@@ -1,0 +1,30 @@
+ require "./lib/pract06"
+
+include Practica7
+
+describe Referencias do
+	before :each do
+			
+		@ref1 = Libro.new(['autor1','autor2'], 'titulo', 'editorial', '1', '24/07/1990', ['ISBN-13: 978-1937785499', 'ISBN-10: 1937785491'], 'serie') 
+
+	end  
+
+
+
+	describe "MIERDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA " do
+		it "Deberia existir un Mixin enumerable para poder recorrer las fechas de las referencias de los nodos de la lista " do
+			@listaEnlazada.insertarInicio(@nodp1)
+                        @listaEnlazada.insertarFinal(@nodp2)
+                        @listaEnlazada.insertarFinal(@nodp3)
+                        @listaEnlazada.insertarFinal(@nodp4)
+                        @listaEnlazada.insertarInicio(@nodp5)
+                        expect(@listaEnlazada.max.to_s).to eq("2013-08-02")
+                        expect(@listaEnlazada.min.to_s).to eq("2008-02-04")
+
+		end
+	end
+	
+	
+end
+
+

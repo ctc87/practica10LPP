@@ -50,9 +50,11 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 		size = self.contadorNodos - 1
         	aux = self.cabeza
         	for i in 0..size
-			yield aux.dato.fechaDate
+			yield aux.dato.autor[0]
                 	aux = aux.nodoSiguiente
         	end
+		# aBlock = lambda { |x| x[0] = x[0].upcase; puts x }  
+		# aBlock.call "paginas"
   	end
 	
 	# Metodo que comprueba si está vacia
@@ -219,7 +221,7 @@ class Articulo < Referencias
                 @paginas, @seccion = paginas, seccion
                 super(autor, titulo, fecha)
         end
-   
+
 	# Metodo que imprime los numeros de pagina
 	def paginasPrint()
                  paginas = ""

@@ -18,7 +18,7 @@ describe Referencias do
 
                 @refp3 = Libro.new(['David Flanagan,','Yukihiro Matsumoto'], 'The Ruby Programming Language', 'O Reilly Media', '1', '04/02/2008', ['ISBN-10: 0596516177', 'ISBN-13: 978-0596516178'])
 
-                @refp4 = Libro.new(['David Chelimsky','Dave Astels', 'Bryan Helmkamp', 'Dan North', 'Zach Dennis', 'Aslak Hellesoy'], 'The RSpecBook: Behaviour Driven Development with RSpec, Cucumber, and Friends', 'Pragmatic Bookshelf', '1', '25/12/2010', ['ISBN-10: 1934356379', 'ISBN-13: 978-1934356371'], 'The Facets of Ruby')
+                @refp4 = Libro.new(['Adavid Chelimsky','Dave Astels', 'Bryan Helmkamp', 'Dan North', 'Zach Dennis', 'Aslak Hellesoy'], 'The RSpecBook: Behaviour Driven Development with RSpec, Cucumber, and Friends', 'Pragmatic Bookshelf', '1', '25/12/2010', ['ISBN-10: 1934356379', 'ISBN-13: 978-1934356371'], 'The Facets of Ruby')
 
                 @refp5 = Libro.new(['Richard E'], 'Silverman Git Pocket Guide', 'O Reilly Media', '1', '02/08/2013', ['ISBN-10: 1449325866', 'ISBN-13: 978-1449325862'])
                 @nodp1 = Nodo.new(@refp1, nil, nil)
@@ -27,6 +27,7 @@ describe Referencias do
                 @nodp4 = Nodo.new(@refp4, nil, nil)
                 @nodp5 = Nodo.new(@refp5, nil, nil)
                 @listaEnlazada = Lista.new(nil)
+                @listaEnlazadaAPA = Lista.new(nil)
 		
 		# parte de la herencia
 		@articuloRevista = ArticuloRevista.new(["Anonimo"],"ESCUELAS TALLER, CASAS DE OFICIOS Y TALLERES DE EMPLEO DE LA COMUNIDAD VALENCIANA", '01/05/2006', [24, 25], "Formacion y empleo", 'Camara')
@@ -337,18 +338,33 @@ describe Referencias do
 		end
 	end
 
-	describe "Pruebas mixin comparable y enumerable para la lsita enlazada " do
+	describe "Pruebas mixin enumerable para la lsita enlazada " do
 		it "Deberia existir un Mixin enumerable para poder recorrer las fechas de las referencias de los nodos de la lista " do
 			@listaEnlazada.insertarInicio(@nodp1)
                         @listaEnlazada.insertarFinal(@nodp2)
                         @listaEnlazada.insertarFinal(@nodp3)
                         @listaEnlazada.insertarFinal(@nodp4)
                         @listaEnlazada.insertarInicio(@nodp5)
-                        expect(@listaEnlazada.max.to_s).to eq("2013-08-02")
-                        expect(@listaEnlazada.min.to_s).to eq("2008-02-04")
+			#sort_by { |word| word.length}
+                        expect(@listaEnlazada.min.to_s).to eq("Adavid Chelimsky")
+                        expect(@listaEnlazada.max.to_s).to eq("Scott Chacon")
+                        #expect(@listaEnlazada.sort.to_s).to eq("2013-08-02")
 
 		end
 	end
 	
+        describe "Pruebas nuevo formato " do
+                it "La lista deberia estar en orden alfabetico deacuerdo al primer apellido de cada autor" do
+                        @listaEnlazadaAPA.insertar(@nodp1)
+                        @listaEnlazadaAPA.insertar(@nodp2)
+                        @listaEnlazadaAPA.insertar(@nodp3)
+                        @listaEnlazadaAPA.insertar(@nodp4)
+                        @listaEnlazadaAPA.insertar(@nodp5)
+                        expect(@listaEnlazada.min).to eq(@listaEnlazada.cabeza)
+                        #expect(@listaEnlazada.max.to_s).to eq("Scott Chacon")
+                        #expect(@listaEnlazada.sort.to_s).to eq("2013-08-02")
+
+                end
+        end
 	
 end
