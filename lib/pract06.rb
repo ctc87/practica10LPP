@@ -50,11 +50,9 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 		size = self.contadorNodos - 1
         	aux = self.cabeza
         	for i in 0..size
-			yield aux.dato.autor[0]
+			yield aux.dato.fechaDate
                 	aux = aux.nodoSiguiente
         	end
-		# aBlock = lambda { |x| x[0] = x[0].upcase; puts x }  
-		# aBlock.call "paginas"
   	end
 	
 	# Metodo que comprueba si está vacia
@@ -174,13 +172,27 @@ class Referencias
                  fechaFormateada = "#{@fechaDate.strftime("%B")} #{@fechaDate.mday}, #{@fechaDate.year}"
          end
 
+	include Comparable
+        # Se define para incluir el mixin comparable
+        # Se toma como valor para la comparación la fecha. 
+        def <=>(other)
+                        
+        	# Si los autores son iguales, se compara por el año
+        	#if 
+		#	self.getPrimerApellido != anOther.getPrimerApellido
+         	#   	self.getPrimerApellido <=> anOther.getPrimerApellido
+                #
+        	#else
+            	#	self.get_year <=> anOther.get_year
+        	#end 
+        end
+
 end
 
 # Esta clase permite representar referncias bibliograficas de documentos electronicos 
 # destinada a crear objetos si no a la herencia, sus atributos son: 
 # pagina, seccion.
 class DocumentoElectronico < Referencias
-        include Comparable
 	
 	# Acceso a los atributos de la clase geters y seters
         attr_reader :link
@@ -196,12 +208,6 @@ class DocumentoElectronico < Referencias
                  salida = "#{@titulo} por #{autorPrint()}\nlink:#{@link}\n (#{fechaFormateada()})\n"
         end
 	
-	# Se define para incluir el mixin comparable
-        # Se toma como valor para la comparación la fecha. 
-        def <=>(other)
-                return nil unless other.instance_of? DocumentoElectronico
-                self.fecha <=> other.fecha
-        end
 
 end
 
@@ -212,7 +218,6 @@ end
 # destinada a crear objetos si no a la herencia, sus atributos son: 
 # pagina, seccion.
 class Articulo < Referencias
-    	include Comparable
 	# Acceso a los atributos de la clase geters y seters
 	attr_reader :paginas, :seccion
 	
@@ -221,7 +226,7 @@ class Articulo < Referencias
                 @paginas, @seccion = paginas, seccion
                 super(autor, titulo, fecha)
         end
-
+   
 	# Metodo que imprime los numeros de pagina
 	def paginasPrint()
                  paginas = ""
@@ -235,14 +240,6 @@ class Articulo < Referencias
                  end
                  return paginas
         end
-
-        # Se define para incluir el mixin comparable
-        # Se toma como valor para la comparación la fecha. 
-        def <=>(other)
-                return nil unless other.is_a? Articulo
-                self.fecha <=> other.fecha
-        end
-
 
 
 end
@@ -292,7 +289,6 @@ end
   # Esta clase permite representar referncias bibliograficas de libros con: 
   # autor, titulo, serie, editorial, edicion, fecha de lanzamiento, codigo ISBN.
 class Libro < Referencias 
-	include Comparable	
 	# Acceso a los atributos de la clase geters y seters
 	attr_reader :serie, :editorial, :numEdicion, :codISBN, :fechaDate
   	
@@ -326,12 +322,6 @@ class Libro < Referencias
 			
 		end
 	end
-	# Se define para incluir el mixin comparable
-        # Se toma como valor para la comparación la fecha. 
-        def <=>(other)
-                return nil unless other.instance_of? Libro
-                self.fecha <=> other.fecha
-        end
 end
 
 
