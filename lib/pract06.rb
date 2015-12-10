@@ -137,6 +137,23 @@ Lista = Struct.new(:cabeza,:contadorNodos) do
 		self.contadorNodos-=1  
 		return aux	
 	end
+
+	def to_s 
+		 str = ""
+		 size = self.contadorNodos - 1 
+                 aux = self.cabeza
+		 vector = []
+        	 for i in 0..size
+                        vector.push(extraerCabeza) 
+                 end
+		 vector.sort!{ |a,b| a.dato.getPrimerApellido <=> b.dato.getPrimerApellido }
+		 for i in 0..size
+			str += vector[i].dato.salidaFormateada + "\n"
+		 end
+		 str=str.sub(" y ", ' & ')
+		 str = str.sub(" and ", " & ")
+		 return str
+	end
 end
 
 # Esta clase permite representar referncias bibliograficas aun que es una clase no 
@@ -144,11 +161,13 @@ end
 # autor, titulo y fecha.
 class Referencias
 	# Acceso a los atributos de la clase geters y seters
-	attr_reader :autor, :titulo, :fecha, :fechaDate
+	attr_reader :autor, :titulo, :fecha, :fechaDate, :letra, :countArray
 	
 	# Constructor que asigna los atributos pasados por parametro y formatea la fecha a un tipo de dato fecha
 	def initialize(autor, titulo, fecha)
-		@autor, @titulo, @fecha = autor, titulo, fecha           
+		@autor, @titulo, @fecha = autor, titulo, fecha
+		@countArray = 0;           
+                @letra = ("a".."z").to_a        
                  afecha = fecha.split(/\//)  
                  @fechaDate = Date.new(afecha[2].to_i, afecha[1].to_i, afecha[0].to_i)
 
@@ -191,19 +210,30 @@ class Referencias
 	def getAnyo
 		anyo = fecha.split("/")[2]
 	end	
-
+	
+	def getTitulo
+		str =""
+		tituloSplited = titulo.split
+		for i in 0..tituloSplited.length - 1
+			str += tituloSplited[i].capitalize + " "	
+		end
+		return str		
+	end
 	include Comparable
         # Se define para incluir el mixin comparable
         # Se toma como valor para la comparación la fecha. 
         def <=>(other)
-                        
         	# Si los apellidos de los autores son iguales, se compara por el año
-        	if 
-			self.getPrimerApellido != anOther.getPrimerApellido
+        	if self.getPrimerApellido != anOther.getPrimerApellido
          	   	self.getPrimerApellido <=> anOther.getPrimerApellido
-                
         	else
-            		self.getAnyo <=> anOther.getAnyo
+			if(self.getAnyo != anOther.getAnyo)
+            			self.getAnyo <=> anOther.getAnyo
+			else
+				self.fecha = self.fecha + self.letra[self.countArray]
+				self.countArray++
+				self.titulo <=> anOther.titulo
+			end
         	end 
         end
 
@@ -225,7 +255,7 @@ class DocumentoElectronico < Referencias
 
         # Metodo que imprime toda la referencia a un libro formateada
         def salidaFormateada()
-                 salida = "#{@titulo} por #{autorPrint()}\nlink:#{@link}\n (#{fechaFormateada()})\n"
+                 salida = "#{self.getTitulo} por #{autorPrint()}\n\tlink:#{@link}\n\t (#{fechaFormateada()})\n"
         end
 	
 
@@ -279,7 +309,7 @@ class ArticuloPeriodico < Articulo
 
 	# Metodo que imprime toda la referencia a un libro formateada
 	def salidaFormateada()
-		salida = "#{@periodico}, #{autorPrint()}\n#{@titulo}\npaginas:#{paginasPrint()}; seccion: #{@seccion} (#{fechaFormateada()})\n"
+		salida = "#{@periodico}, #{autorPrint()}\n\t#{self.getTitulo}\n\tpaginas:#{paginasPrint()}; seccion: #{@seccion} (#{fechaFormateada()})\n"
         end
 	
 
@@ -300,7 +330,7 @@ class ArticuloRevista < Articulo
 
         # Metodo que imprime toda la referencia a un libro formateada
         def salidaFormateada()
-                salida = "#{@revista}#{autorPrint()}\n#{@titulo}\npaginas:#{paginasPrint()}; seccion: #{@seccion} (#{fechaFormateada()})\n"
+                salida = "#{@revista}#{autorPrint()}\n\t#{self.getTitulo}\n\tpaginas:#{paginasPrint()}; seccion: #{@seccion} (#{fechaFormateada()})\n"
         end
  
 end
@@ -325,7 +355,7 @@ class Libro < Referencias
 		size = @codISBN.length - 1 
 		for i in 0..size
 			if i != size
-				listadoISBN += "#{@codISBN[i]}\n"
+				listadoISBN += "#{@codISBN[i]}\n\t"
 			else
 				listadoISBN += "#{@codISBN[i]}"
 			end
@@ -336,9 +366,9 @@ class Libro < Referencias
 	# Metodo que imprime toda la referencia a un libro formateada
 	def salidaFormateada()
 		if @serie != "null"
-			salida = "#{autorPrint()}\n#{@titulo}\n(#{@serie})\n#{@editorial}; #{@numEdicion} edition (#{fechaFormateada()})\n#{codISBNprint()}"
+			salida = "#{autorPrint()}\n\t#{self.getTitulo}\n\t(#{@serie})\n\t#{@editorial}; #{@numEdicion} edition (#{fechaFormateada()})\n\t#{codISBNprint()}"
 		else
-			salida = "#{autorPrint()}\n#{@titulo}\n#{@editorial}; #{@numEdicion} edition (#{fechaFormateada()})\n#{codISBNprint()}"
+			salida = "#{autorPrint()}\n\t#{self.getTitulo}\n\t#{@editorial}; #{@numEdicion} edition (#{fechaFormateada()})\n\t#{codISBNprint()}"
 			
 		end
 	end

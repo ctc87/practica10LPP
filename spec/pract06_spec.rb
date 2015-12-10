@@ -71,6 +71,14 @@ describe Referencias do
 			expect(@listConContenido.ultimo).to eq(@nod1)
 		end
 		
+		it "Debe existir un metodo que imprima la lista por oirden de apellidos->anyo" do
+			@listaEnlazada.insertarInicio(@nodp1)
+                        @listaEnlazada.insertarFinal(@nodp2)
+                        @listaEnlazada.insertarFinal(@nodp3)
+                        @listaEnlazada.insertarFinal(@nodp4)
+                        @listaEnlazada.insertarInicio(@nodp5)
+			expect(@listaEnlazada.to_s).to eq("Chacon Scott.\n\tPro Git 2009th Edition \n\t(Pro)\n\tApress; 2009 edition (August 27, 2009)\n\tISBN-13: 978-1430218333\n\tISBN-10: 1430218339\nChelimsky David, Astels Dave, Helmkamp Bryan, North Dan, Dennis Zach, Hellesoy Aslak.\n\tThe Rspecbook: Behaviour Driven Development With Rspec, Cucumber, And Friends \n\t(The Facets of Ruby)\n\tPragmatic Bookshelf; 1 edition (December 25, 2010)\n\tISBN-10: 1934356379\n\tISBN-13: 978-1934356371\nE Richard.\n\tSilverman Git Pocket Guide \n\tO Reilly Media; 1 edition (August 2, 2013)\n\tISBN-10: 1449325866\n\tISBN-13: 978-1449325862\nFlanagan, David, Matsumoto Yukihiro.\n\tThe Ruby Programming Language \n\tO Reilly Media; 1 edition (February 4, 2008)\n\tISBN-10: 0596516177\n\tISBN-13: 978-0596516178\nThomas Dave, Hunt Andy, Fowler Chad.\n\tProgramming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide \n\t(The Facets of Ruby)\n\tPragmatic Bookshelf; 4 edition (July 7, 2013)\n\tISBN-13: 978-1937785499\n\tISBN-10: 1937785491\n")
+		end	
 		it "Debe existir un metodo que permita insertar al final de una lsita vacia" do
 			@listVacia.insertarFinal(@nod2)
 			expect(@listVacia.cabeza).to eq(@nod2)
@@ -193,16 +201,16 @@ describe Referencias do
                         expect(@ref1.autorPrint()).to eq("autor1, autor2.")
 		end
 		it "Debe existir un metodo que imprima los codigos ISBN" do
-			expect(@ref1.codISBNprint()).to eq("ISBN-13: 978-1937785499\nISBN-10: 1937785491")
+			expect(@ref1.codISBNprint()).to eq("ISBN-13: 978-1937785499\n\tISBN-10: 1937785491")
 
 		end
 		it "Debe existir un metodo que imprima la fecha formateada" do
 			expect(@ref1.fechaFormateada()).to eq("July 24, 1990")
 		end
 		it "Debe existir un metodo para obtener la referencia completa formateada con o sin serie" do
-			expect(@ref1.salidaFormateada()).to eq("autor1, autor2.\ntitulo\n(serie)\neditorial; 1 edition (July 24, 1990)\nISBN-13: 978-1937785499\nISBN-10: 1937785491")
-			expect(@ref2.salidaFormateada()).to eq("Thomas Dave, Hunt Andy, Fowler Chad.\nProgramming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide\n(The Facets of Ruby)\nPragmatic Bookshelf; 4 edition (July 7, 2013)\nISBN-13: 978-1937785499\nISBN-10: 1937785491")
-			expect(@ref3.salidaFormateada()).to eq("autor1, autor2.\ntitulo\neditorial; 1 edition (August 25, 1999)\nISBN-13: 978-1937785499\nISBN-10: 1937785491")
+			expect(@ref1.salidaFormateada()).to eq("autor1, autor2.\n\tTitulo \n\t(serie)\n\teditorial; 1 edition (July 24, 1990)\n\tISBN-13: 978-1937785499\n\tISBN-10: 1937785491")
+			expect(@ref2.salidaFormateada()).to eq("Thomas Dave, Hunt Andy, Fowler Chad.\n\tProgramming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide \n\t(The Facets of Ruby)\n\tPragmatic Bookshelf; 4 edition (July 7, 2013)\n\tISBN-13: 978-1937785499\n\tISBN-10: 1937785491")
+			expect(@ref3.salidaFormateada()).to eq("autor1, autor2.\n\tTitulo \n\teditorial; 1 edition (August 25, 1999)\n\tISBN-13: 978-1937785499\n\tISBN-10: 1937785491")
 		end
 	end
 	
@@ -246,7 +254,7 @@ describe Referencias do
 			expect(@articuloRevista.seccion).to eq('Formacion y empleo')
 		end
 		it "Deeberia existir un metodo para obtener la salida formateada" do
-			expect(@articuloRevista.salidaFormateada).to eq("CamaraAnonimo.\nESCUELAS TALLER, CASAS DE OFICIOS Y TALLERES DE EMPLEO DE LA COMUNIDAD VALENCIANA\npaginas:24, 25.; seccion: Formacion y empleo (May 1, 2006)\n")
+			expect(@articuloRevista.salidaFormateada).to eq("CamaraAnonimo.\n\tEscuelas Taller, Casas De Oficios Y Talleres De Empleo De La Comunidad Valenciana \n\tpaginas:24, 25.; seccion: Formacion y empleo (May 1, 2006)\n")
 		end	
         end
 
@@ -261,7 +269,7 @@ describe Referencias do
                         expect(@articuloPeriodico.seccion).to eq('Internacional')
 		end
 		it "Deeberia existir un metodo para obtener la salida formateada" do
-			expect(@articuloPeriodico.salidaFormateada).to eq("EL PAIS, Torres Alvaro.\nla cantinela del sin sentido\npaginas:35, 36.; seccion: Internacional (July 2, 2010)\n")
+			expect(@articuloPeriodico.salidaFormateada).to eq("EL PAIS, Torres Alvaro.\n\tLa Cantinela Del Sin Sentido \n\tpaginas:35, 36.; seccion: Internacional (July 2, 2010)\n")
 						
                 end
         end
@@ -276,7 +284,7 @@ describe Referencias do
 
                 end
                 it "Deeberia existir un metodo para obtener la salida formateada" do
-                        expect(@documentoElectronico.salidaFormateada).to eq("El sobrepero por Ramos Pablo, Sevilla Enrique.\nlink:www.articuloejemplo.com/el&sobrepeso\n (August 9, 2010)\n")
+                        expect(@documentoElectronico.salidaFormateada).to eq("El Sobrepero  por Ramos Pablo, Sevilla Enrique.\n\tlink:www.articuloejemplo.com/el&sobrepeso\n\t (August 9, 2010)\n")
 
                 end
 
